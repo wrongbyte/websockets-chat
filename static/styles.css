@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+.info {
+  box-shadow: 2px 2px 4px rgb(161, 44, 146) ,-1px 0px 10px 0 rgb(95, 105, 252);
+  position: relative;
+  transition: .5s;
+  border-radius: 40px;
+  text-align: center;
+  color: #fff; 
+  font-family: "Poppins", sans-serif;
+  font-size: 1.10rem;
+  margin: 0 auto 1rem;
+  padding: 0.5rem 1.5rem;
+}
+
+.info:hover {
+  transition: .3s;
+  transform: translateY(-5%);
+}
+
+.alert {
+  color: lavender;
+  text-align: center;
+}
+
+#typingStatus {
+  color: lavender;
+
+  /* position: fixed; */
+  text-align: center;
+  font-size: 1rem !important;
+}
+
+#messages {
+  max-height: auto;
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.10rem;
+  margin: 0 auto 1rem;
+  padding: 0.5rem 1.5rem;
+}
+
+#messages p {
+  border-radius: 1.15rem;
+  line-height: 1.25;
+  max-width: 75%;
+  padding: 0.5rem .875rem;
+  position: relative;
+  word-wrap: break-word;
+}
+
+#messages p::before,
+#messages p::after {
+  bottom: -0.1rem;
+  content: "";
+  height: 1rem;
+  position: absolute;
+}
+
+p.from-me {
+  box-shadow: 2px 2px 4px rgb(161, 44, 146) ,-1px 0px 10px 0 rgb(0, 0, 0);
+  align-self: flex-end;
+  color: #fff; 
+}
+
+p[class^="from-"] {
+  margin: 0.5rem 0;
+  width: fit-content;
+}
+
+p.from-me ~ p.from-me {
+  margin: 0.25rem 0 0;
+}
+
+p.from-me ~ p.from-me:not(:last-child) {
+  margin: 0.25rem 0 0;
+}
+
+p.from-me ~ p.from-me:last-child {
+  margin-bottom: 0.5rem;
+}
+
+p.from-them {
+  box-shadow: 2px 2px 4px rgb(0, 0, 0) ,-1px 0px 10px 0 rgb(80, 161, 137);
+  align-items: flex-start;
+  color: #fff; 
+}
+
+
+p[class^="from-"].emoji {
+  background: none;
+  font-size: 2.5rem;
+}
+
+p[class^="from-"].emoji::before {
+  content: none;
+}
+
+.no-tail::before {
+  display: none;
+}
+
+.margin-b_none {
+  margin-bottom: 0 !important;
+}
+
+.margin-b_one {
+  margin-bottom: 1rem !important;
+}
+
+.margin-t_one {
+  margin-top: 1rem !important;
+}
+
+.color_1 {
+  font-style: normal;
+  font-weight: bold;
+  color:rgb(111, 226, 220);
+}
+
+.color_2 {
+  font-style: normal;
+  font-weight: bold;
+  color: rgb(184, 108, 255);
+}
+
+.color_3 {
+  font-style: normal;
+  font-weight: bold;
+  color:rgb(236, 146, 44)
+}
+
+.color_4 {
+  font-style: normal;
+  font-weight: bold;
+  color: bisque;
+}
+/* general styling */
+@font-face {
+  font-family: "SanFrancisco";
+  src:
+    url("https://cdn.rawgit.com/AllThingsSmitty/fonts/25983b71/SanFrancisco/sanfranciscodisplay-regular-webfont.woff2") format("woff2"),
+    url("https://cdn.rawgit.com/AllThingsSmitty/fonts/25983b71/SanFrancisco/sanfranciscodisplay-regular-webfont.woff") format("woff");
+}
+
+body {  
+  background: #1D1F2B;
+  font-family: -apple-system, 
+    BlinkMacSystemFont, 
+    "Segoe UI", 
+    Roboto, 
+    Oxygen-Sans, 
+    Ubuntu, 
+    Cantarell, 
+    "Helvetica Neue", 
+    sans-serif;
+  font-weight: normal;
+  margin: 0;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 1rem;
+}
+
+
+@media screen and (max-width: 800px) {
+  body {
+    margin: 0 0.5rem;
+  }
+
+  .container {
+    padding: 0.5rem;
+  }
+
+  .messages {
+    font-size: 1.05rem;
+    margin: 0 auto 1rem;
+    max-width: 600px;
+    padding: 0.25rem 0.875rem;
+  }
+
+  .messages p {
+    margin: 0.5rem 0;
+  }
+}
+
+
+#form {
+   background: rgba(0, 0, 0, 0.15);
+   display: flex;
+   height: 3rem;
+   box-sizing: border-box; backdrop-filter: blur(10px); 
+  }
+#input {
+  border: none; 
+  padding: 0 1rem; 
+  flex-grow: 1; 
+  border-radius: 2rem; 
+  margin: 0.25rem; 
+}
+#input:focus { outline: none; }
+#form > button {
+   background: #333;
+   border: none; 
+   padding: 0 1rem; 
+   margin: 0.25rem; 
+   border-radius: 3px; outline: none; color: #fff; 
+  }

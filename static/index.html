@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container"> 
+    <div class="info">
+      <h2>WELCOME!</h2>
+      <p id="usersOnline"></p>
+    </div>
+      <div id="messages"></div>
+      <div id="footer">
+        <p id="typingStatus"></p>
+        <!-- TODO: put it at the bottom of the page even though there's no messages yet -->
+        <form id="form" action="">
+          <input 
+          id="input"
+          autocomplete="off" 
+          value="" />
+          <button>Send</button>
+        </form>
+      </div>
+  </div> 
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html> 
