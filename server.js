@@ -4,7 +4,7 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
-
+let usersTyping;
 
 
 app.use(express.static(__dirname + '/static'));
@@ -15,10 +15,8 @@ app.get('/', (req, res) => {
 
 const colors = [ 'color_1', 'color_2', 'color_3', 'color_4'];
 let usersCount = 0;
-
-
-
 const usersMap = new Map(); 
+
 
 io.on('connection', (socket) => {
 
@@ -46,11 +44,17 @@ io.on('connection', (socket) => {
       socket.broadcast.emit('chat message', msg, usersMap.get(socket.id)); 
     });
 
-    socket.on('user typing', (username) => {
+ 
+    socket.on('user typing', (username) => { 
+      // todo: add support to multiple users typing
+      console.log('user typing:' + username);
+      
       io.emit('user typing', username);
     });
 
     socket.on('stop typing', (username) => {
+      // 
+      console.log('user stopped typing:' + username);
       io.emit('stop typing', username);
     });
 

@@ -2,6 +2,7 @@ var socket = io();
 let num = Math.floor((Math.random() * 10) + 1);
 var form = document.getElementById('form');
 var input = document.getElementById('input');
+var timeout;
 
 class User {
     constructor(username, userColor) {
@@ -10,10 +11,12 @@ class User {
     }
 }
 
-var isTyping = false; // define locally if a user is typing. if so, broadcast this as an event
+var isTyping = false;
 
 let username = prompt('Choose a username:');
 if (!username) username = `anonymous${num}`;
+
+// ================== socket stuff =======================================
 
 socket.emit('new user', new User(username));
 
@@ -27,23 +30,8 @@ socket.on('disconnection', (user, onlineUsers) => {
     userAlert(`${user.username} disconnected.`);
 });
 
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    if (input.value) {
-        socket.emit('chat message', input.value); 
-        printMyMessage(input.value);
-        input.value = '';
-    }
-});
-
 socket.on('chat message', (msg, user) => {
     printTheirMessage(msg, user);
-});
-
-input.addEventListener('keyup', () => {
-    // FIX: add a timeout for when user does not type anything new
-    input.value ? isTyping = true : isTyping = false;
-    isTyping ? socket.emit('user typing', username) : socket.emit('stop typing', username);
 });
 
 socket.on('user typing', (username) => {
@@ -53,6 +41,38 @@ socket.on('user typing', (username) => {
 });
 
 socket.on('stop typing', () =>  typingStatus.textContent = '');
+
+// ================== html stuff =======================================
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (input.value) {
+        socket.emit('chat message', input.value); 
+        printMyMessage(input.value);
+        input.value = '';
+    }
+});
+
+input.addEventListener('keyup', () => {
+    clearTimeout(timeout);
+
+    // when user does not type anything new for some seconds
+    timeout = setTimeout(() => {
+        socket.emit('stop typing', username);
+    }, 4000);
+
+    input.value ? isTyping = true : isTyping = false;
+    isTyping ? socket.emit('user typing', username) : socket.emit('stop typing', username);
+});
+
+
+function checkTyping() {
+    isTyping = true;
+    timeout = setTimeout(() => {
+        isTyping = false;
+        socket.emit('stop typing');
+    }, 3000);
+}
 
 function userAlert (event) {
     var alert = document.createElement('div');
