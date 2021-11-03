@@ -34,10 +34,18 @@ socket.on('chat message', (msg, user) => {
     printTheirMessage(msg, user);
 });
 
-socket.on('user typing', (username) => {
+socket.on('user typing', (usernameList) => {
+    // really wanted to use switch case here but didn't find how
     var typingStatus = document.getElementById('typingStatus');
     window.scrollTo(0, document.body.scrollHeight);
-    typingStatus.textContent = `${username} is typing...`;
+        if (usernameList.length === 1){
+            typingStatus.textContent = `${usernameList[0]} is typing...`;
+        } else if (usernameList.length === 2){
+            typingStatus.textContent = `${usernameList[0]} and ${usernameList[1]} are typing...`;
+        } else {
+            // also a good solution would be to create a comma-separated list with all elements, except the last one, which we separate by an 'and'. but in this scenario, I would consider that not many people would be using this chat
+            typingStatus.textContent = 'A few users are typing...'
+        }
 });
 
 socket.on('stop typing', () =>  typingStatus.textContent = '');

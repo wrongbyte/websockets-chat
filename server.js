@@ -4,7 +4,7 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
-let usersTyping;
+let usersTyping = [];
 
 
 app.use(express.static(__dirname + '/static'));
@@ -27,7 +27,6 @@ io.on('connection', (socket) => {
       let onlineUsers = [];
       usersMap.forEach(value => onlineUsers.push(value));
       io.emit('disconnection', disconnectedUser, onlineUsers);
-      console.log(usersMap);
     });
 
     socket.on('new user', (user) => {
@@ -46,15 +45,14 @@ io.on('connection', (socket) => {
 
  
     socket.on('user typing', (username) => { 
-      // todo: add support to multiple users typing
-      console.log('user typing:' + username);
-      
-      io.emit('user typing', username);
+      if (usersTyping.indexOf(username) === -1){
+        usersTyping.push(username);
+      }
+      io.emit('user typing', usersTyping);
     });
 
     socket.on('stop typing', (username) => {
-      // 
-      console.log('user stopped typing:' + username);
+      usersTyping = usersTyping.filter(e => e !== username);
       io.emit('stop typing', username);
     });
 
