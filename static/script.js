@@ -35,7 +35,6 @@ socket.on('chat message', (msg, user) => {
 });
 
 socket.on('user typing', (usernameList) => {
-    // really wanted to use switch case here but didn't find how
     var typingStatus = document.getElementById('typingStatus');
     window.scrollTo(0, document.body.scrollHeight);
         if (usernameList.length === 1){
@@ -72,15 +71,6 @@ input.addEventListener('keyup', () => {
     input.value ? isTyping = true : isTyping = false;
     isTyping ? socket.emit('user typing', username) : socket.emit('stop typing', username);
 });
-
-
-function checkTyping() {
-    isTyping = true;
-    timeout = setTimeout(() => {
-        isTyping = false;
-        socket.emit('stop typing');
-    }, 3000);
-}
 
 function userAlert (event) {
     var alert = document.createElement('div');
